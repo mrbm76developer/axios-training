@@ -13,7 +13,6 @@ class Blog extends React.Component {
         <section className="posts">
           <Post />
           <Post />
-          <Post />
         </section>
         <section>
           <FullPost />
