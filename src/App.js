@@ -1,14 +1,12 @@
-import React from 'react'
+import React, { Fragment } from "react";
+import Blog from "./containers/Blog/Blog";
 
-import Blog from './containers/Blog/Blog'
+const App = () => {
+  return (
+    <Fragment>
+      <Blog />
+    </Fragment>
+  );
+};
 
-const App =()=> {
-  
-    return (
-      <>
-        <Blog />
-      </>
-    )
-}
-
-export default App
+export default App;

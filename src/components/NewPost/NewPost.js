@@ -1,5 +1,5 @@
+import Axios from "axios";
 import React, { useState } from "react";
-
 import "./NewPost.css";
 
 const NewPost = () => {
@@ -7,6 +7,16 @@ const NewPost = () => {
   const [content, setContent] = useState("");
   const [author, setAuthor] = useState("Mohammad Reza");
 
+  const data = {
+    title: title,
+    body: content,
+    author: author,
+  };
+  const addDataHandler = () => {
+    Axios.post("/posts", data).then(
+      (response) => console.log(response)
+    );
+  };
   return (
     <div className="new-post">
       <h2>Add a Post</h2>
@@ -29,7 +39,7 @@ const NewPost = () => {
       >
         <option value="Mohammad Reza">Mohammad Reza</option>
       </select>
-      <button>Add Post</button>
+      <button onClick={addDataHandler}>Add Post</button>
     </div>
   );
 };

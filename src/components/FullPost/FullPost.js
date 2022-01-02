@@ -1,17 +1,42 @@
-import React from "react";
+import Axios from "axios";
+import React, { useState } from "react";
 import "./FullPost.css";
 
 const FullPost = (props) => {
-  // let post = <p>Please select a Post</p>;
+  const [isPost, setIsPost] = useState(null);
 
-  return (
-    <div className="full-post">
-      <h2>Title</h2>
-      <p>Content</p>
-      <div>
-        <button className="delete">Delete</button>
+  const deletePostHandler = () => {
+    Axios.delete(`/posts/${props.id}`).then(
+      (response) => console.log(response)
+    );
+  };
+
+  let post = <p style={{ textAlign: "center" }}>Please select a Post</p>;
+
+  if (props.id) {
+    post = <p>Loading...</p>;
+    if (!isPost || (isPost && isPost.id !== props.id))
+      Axios.get(`/posts/${props.id}`).then(
+        (response) => {
+          setIsPost(response.data);
+        }
+      );
+  }
+
+  if (isPost) {
+    post = (
+      <div className="full-post">
+        <h2>{isPost.title}</h2>
+        <p>{isPost.body}</p>
+        <div>
+          <button className="delete" onClick={deletePostHandler}>
+            Delete
+          </button>
+        </div>
       </div>
-    </div>
-  );
+    );
+  }
+
+  return <>{post}</>;
 };
 export default FullPost;
